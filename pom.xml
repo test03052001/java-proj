@@ -21,7 +21,71 @@
         <java.version>17</java.version>
     </properties>
 
+    <!--
+      SECURITY LAB ONLY: dependencies below are pinned to versions with published CVEs
+      (for Snyk / OWASP Dependency-Check / Mend training on this repo). Do not expose
+      this build to the internet or ship it. Upgrade or remove before any real deployment.
+      Note: SnakeYAML is not downgraded here — Spring Boot 3 requires SnakeYAML 2.x.
+    -->
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- CVE-2022-42889 (Apache Commons Text interpolation) when misused with untrusted input -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.9</version>
+            </dependency>
+            <!-- CVE-2021-35515 / CVE-2021-35516 / CVE-2021-35517 (among others) in 1.21 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>1.21</version>
+            </dependency>
+            <!-- CVE-2023-1370 (stack overflow / DoS in JSONParser) fixed in 2.4.9+ -->
+            <dependency>
+                <groupId>net.minidev</groupId>
+                <artifactId>json-smart</artifactId>
+                <version>2.4.7</version>
+            </dependency>
+            <!-- CVE-2023-2976 among others; upgrade to 32.0.0+ for production -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>30.0-jre</version>
+            </dependency>
+            <!-- CVE-2020-13956 and related issues in older 4.5.x line -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.12</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <!-- Explicit vulnerable pins (also influence transitive versions via dependencyManagement above) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
