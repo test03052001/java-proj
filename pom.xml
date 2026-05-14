@@ -34,7 +34,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
-                <version>1.9</version>
+                <version>1.10.0</version>
             </dependency>
             <!-- CVE-2021-35515 / CVE-2021-35516 / CVE-2021-35517 (among others) in 1.21 -->
             <dependency>
