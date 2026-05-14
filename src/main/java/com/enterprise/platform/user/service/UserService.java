@@ -5,6 +5,7 @@ import com.enterprise.platform.common.exception.ResourceNotFoundException;
 import com.enterprise.platform.user.domain.User;
 import com.enterprise.platform.user.repository.UserRepository;
 import com.enterprise.platform.user.web.dto.CreateUserRequest;
+import com.enterprise.platform.user.web.dto.UpdateUserRequest;
 import com.enterprise.platform.user.web.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<UserResponse> listAll() {
         return userRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponse> search(String term) {
+        return userRepository.findByEmailContainingIgnoreCaseOrDisplayNameContainingIgnoreCase(term, term).stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @Transactional(readOnly = true)
@@ -45,10 +53,31 @@ public class UserService {
     }
 
     @Transactional
+    public UserResponse update(Long id, UpdateUserRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + id));
+        if (userRepository.existsByEmailAndIdNot(request.email(), id)) {
+            throw new BusinessException("Email already registered");
+        }
+        user.setEmail(request.email());
+        user.setDisplayName(request.displayName());
+        user.setActive(request.active());
+        return toResponse(user);
+    }
+
+    @Transactional
     public void deactivate(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + id));
         user.setActive(false);
+    }
+
+    @Transactional
+    public UserResponse activate(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + id));
+        user.setActive(true);
+        return toResponse(user);
     }
 
     public User getEntity(Long id) {

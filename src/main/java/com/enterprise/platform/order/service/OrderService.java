@@ -32,6 +32,13 @@ public class OrderService {
     private final InventoryService inventoryService;
 
     @Transactional(readOnly = true)
+    public List<OrderResponse> listAll() {
+        return orderRepository.findAll().stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public List<OrderResponse> listForUser(Long userId) {
         return orderRepository.findByUserIdOrderByCreatedAtDesc(userId).stream()
                 .map(this::toResponse)
@@ -78,6 +85,14 @@ public class OrderService {
         order.setTotalAmount(total);
         CustomerOrder saved = orderRepository.save(order);
         return toResponse(saved);
+    }
+
+    @Transactional
+    public OrderResponse updateStatus(Long id, OrderStatus status) {
+        CustomerOrder order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found: " + id));
+        order.setStatus(status);
+        return toResponse(order);
     }
 
     private OrderResponse toResponse(CustomerOrder o) {

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/inventory")
 @RequiredArgsConstructor
@@ -23,6 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class InventoryController {
 
     private final InventoryService inventoryService;
+
+    @GetMapping("/stocks")
+    @Operation(summary = "List all stock levels from DB")
+    public ApiResponse<List<StockResponse>> listStock() {
+        return ApiResponse.ok(inventoryService.listStock());
+    }
 
     @GetMapping("/products/{productId}")
     @Operation(summary = "Available quantity for SKU")
