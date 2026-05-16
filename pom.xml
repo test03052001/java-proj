@@ -30,11 +30,11 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- CVE-2022-42889 (Apache Commons Text interpolation) when misused with untrusted input -->
+            <!-- CVE-2022-42889 fixed in Apache Commons Text 1.10.0+ -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
-                <version>1.9</version>
+                <version>1.10.0</version>
             </dependency>
             <!-- CVE-2021-35515 / CVE-2021-35516 / CVE-2021-35517 (among others) in 1.21 -->
             <dependency>
