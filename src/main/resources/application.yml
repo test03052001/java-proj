@@ -4,8 +4,9 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/enterprise_platform?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    # Operators must set MYSQL_USERNAME and MYSQL_PASSWORD.
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
   h2:
     console:
       enabled: false
