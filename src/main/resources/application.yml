@@ -2,10 +2,11 @@ spring:
   application:
     name: enterprise-platform
   datasource:
-    url: jdbc:mysql://localhost:3306/enterprise_platform?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    # Configure these through environment variables in CI/CD or Docker.
+    url: ${SPRING_DATASOURCE_URL}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   h2:
     console:
       enabled: false
