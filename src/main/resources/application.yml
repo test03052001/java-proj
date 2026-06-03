@@ -11,7 +11,8 @@ spring:
       enabled: false
   jpa:
     hibernate:
-      ddl-auto: update
+      # Avoid schema mutations at startup outside local development.
+      ddl-auto: validate
     open-in-view: false
     properties:
       hibernate:
