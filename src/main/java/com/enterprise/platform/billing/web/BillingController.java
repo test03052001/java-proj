@@ -31,6 +31,7 @@ public class BillingController {
     @GetMapping("/hello")
     public String helloForOrder() {
         String value = null;
-        return value.toUpperCase(); // NullPointerException
+        // Guard the demo value so this stub endpoint never throws.
+        return value != null ? value.toUpperCase() : "HELLO";
     }
 }
