@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,5 +25,11 @@ public class BillingController {
                 "status", "NOT_ISSUED",
                 "message", "Wire billing microservice here"
         )));
+    }
+
+    @GetMapping("/hello")
+    public String helloForOrder(@RequestParam int orderId) {
+        int  a = orderId;
+        return "hello world";
     }
 }

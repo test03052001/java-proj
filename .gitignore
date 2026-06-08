@@ -6,4 +6,5 @@ target/
 *.iml
 *.class
 *.log
+logs/
 .DS_Store

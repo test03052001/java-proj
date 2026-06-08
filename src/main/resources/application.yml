@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/enterprise_platform?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: afsdf1254sd5fdf45f4d51s216dsg6
+    password: root
   h2:
     console:
       enabled: false
@@ -34,6 +34,9 @@ springdoc:
     path: /swagger-ui.html
 
 logging:
+  file:
+    path: logs
   level:
     com.enterprise.platform: INFO
     org.hibernate.SQL: WARN
+    API_ACCESS: INFO
