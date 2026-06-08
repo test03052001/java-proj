@@ -30,7 +30,8 @@ public class BillingController {
 
     @GetMapping("/hello")
     public String helloForOrder() {
-        String value = null;
-        return value.toUpperCase(); // NullPointerException
+        String value = "hello";
+        // Use a safe default so this demo endpoint never dereferences null.
+        return value.toUpperCase();
     }
 }
